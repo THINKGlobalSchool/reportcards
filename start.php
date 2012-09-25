@@ -27,7 +27,54 @@ function reportcards_init() {
 	elgg_register_simplecache_view('js/reportcards/reportcards');	
 	elgg_register_js('elgg.reportcards', $nm_js);
 	
-	// Debug
-	elgg_load_css('elgg.reportcards');
-	elgg_load_js('elgg.reportcards');
+	elgg_extend_view('tgstheme/modules/profile', 'reportcards/modules/student');
+	
+	// Register 'reportcards' page handler
+	elgg_register_page_handler('reportcards', 'reportcards_page_handler');
+	
+	// Register run once for report cards for initial setup
+	run_function_once("reportcards_run_once");
+
+	//elgg_load_css('elgg.reportcards');
+	//elgg_load_js('elgg.reportcards');
+}
+
+/* Report Cards Page Handler */
+function reportcards_page_handler($page) {
+	switch($page[0]) {
+		case 'debug':
+			if (!elgg_is_admin_logged_in()) {
+				forward();
+			}
+			$title = "Report Cards Debug";
+			$content = elgg_view_title($title);
+			$test_directory = elgg_get_plugins_path() . 'reportcards/test_data/';
+			$test_file = $test_directory . "test_import.xml";
+			//$content .= reportcards_import_from_file($test_file, $test_directory, TRUE);
+			//reportcards_reset();
+			break;
+		case 'download':
+			set_input('guid', $page[1]);
+			$pages_path = elgg_get_plugins_path() . 'reportcards/pages/reportcards';
+			include "$pages_path/download.php";
+			break;
+		default:
+			forward();
+			break;
+	}
+
+	$params['content'] = $content;
+
+	$body = elgg_view_layout('one_column', $params);
+	echo elgg_view_page($title, $body);
+}
+
+/**
+ * Run once for report cards
+ *
+ * @return void
+ */
+function reportcards_run_once() {
+	// Register todo submission file class
+	add_subtype("object", "reportcardfile", "ElggFile");
 }
