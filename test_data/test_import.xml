@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<reportexport>
+	<title>2012 Term 1 Report Card</title>
+	<year>2012</year>
+	<period>1</period>
+	<published>1342027389</published>
+	<reports>
+		<report>
+			<user>
+				<guid>32</guid>
+				<name>Jeff Tilson</name>
+			</user>
+			<filename>jtilson_2012_1_32_1342027389.pdf</filename>
+		</report>
+		<report>
+			<user>
+				<guid>43</guid>
+				<name>James Ready</name>
+			</user>
+			<filename>jready_2012_1_43_1342027389.pdf</filename>
+		</report>
+		<report>
+			<user>
+				<guid>2893289</guid>
+				<name>Bogus User</name>
+			</user>
+			<filename>bogus_2012_1_2893289_1342027389.pdf</filename>
+		</report>
+	</reports>
+</reportexport>

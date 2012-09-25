@@ -11,14 +11,17 @@
 
 $english = array(
 	// Generic
+	'item:object:reportcardfile' => 'Report Card Files',
 
 	// Page titles
 
 	// Labels
- 
+ 	'reportcards:label:reportcards' => 'Report Cards',
+
 	// River
 
 	// Messages
+	'reportcards:downloadfailed' => "Sorry; this file is not available at this time.",
 
 	// Other content
 );
