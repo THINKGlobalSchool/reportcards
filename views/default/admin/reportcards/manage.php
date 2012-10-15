@@ -10,12 +10,29 @@
  */
 elgg_load_js('elgg.reportcards');
 
+$reportcard_imports_label = elgg_echo('reportcards:label:reportcardimports');
+$reportcard_imports = elgg_list_entities(array(
+	'type' => 'object',
+	'subtype' => 'reportcard_import_container',
+	'pagination' => TRUE,
+	'full_view' => FALSE,
+));
+
+if (!$reportcard_imports) {
+	$reportcard_imports = "<label>" . elgg_echo('reportcards:label:noresults') . "</label>";
+}
+
+$reportcard_imports_module = elgg_view_module('inline', $reportcard_imports_label, $reportcard_imports);
+
 $reset_form = elgg_view_form('reportcards/reset');
 
+$scripts_label = elgg_echo('reportcards:label:scripts');
+
+$scripts_module = elgg_view_module('inline', $scripts_label, $reset_form);
+
 $content = <<<HTML
-	$reset_form
-	<div id='reportcards-management-output'>
-	</div>
+	$reportcard_imports_module
+	$scripts_module
 HTML;
 
 echo $content;

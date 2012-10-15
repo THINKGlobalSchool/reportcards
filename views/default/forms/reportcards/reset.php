@@ -22,6 +22,8 @@ $content = <<<HTML
 		<label>$reset_label</label><br /><br />
 		$reset_input
 	</div>
+	<div id='reportcards-reset-output'>
+	</div>
 HTML;
 
 echo $content;
