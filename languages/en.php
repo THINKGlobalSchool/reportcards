@@ -12,9 +12,12 @@
 $english = array(
 	// Generic
 	'item:object:reportcardfile' => 'Report Card Files',
+	'item:object:reportcard_import_container' => 'Report Card Import Containers',
 	'admin:reportcards' => 'Report Cards',
 	'admin:reportcards:import' => 'Import',
 	'admin:reportcards:manage' => 'Manage',
+	'admin:reportcards:viewimport' => 'View Report Card Import',
+	'admin:reportcards:editimport' => 'Edit Report Card Import',
 
 	// Page titles
 
@@ -31,6 +34,9 @@ $english = array(
 	'reportcards:label:resetlabel' => 'Reset all reports',
 	'reportcards:label:reset' => 'Reset',
 	'reportcards:label:resetconfirm' => 'Are you sure you want to reset all reports? ALL existing report cards will be deleted!!',
+	'reportcards:label:reportcardimports' => 'Report Card Imports',
+	'reportcards:label:scripts' => 'Scripts',
+	'reportcards:label:noresults' => 'No Results',
 
 	// River
 
@@ -40,11 +46,17 @@ $english = array(
 	'reportcards:import_directory_invalid' => 'Warning: Report cards import directory is invalid!',
 	'reportcards:success:createimportdirectory' => 'Successfully created import directory',
 	'reportcards:success:importdirectory' => 'Successfully set import directory',
+	'reportcards:success:deleteimport' => 'Successfully deleted report card import',
+	'reportcards:success:editreportimport' => 'Successfully edited report card import',
 	'reportcards:error:importdirectory' => 'There was an error setting the import directory',
 	'reportcards:error:createimportdirectory' => 'There was an error creating the import directory',
 	'reportcards:error:invalidfile' => 'Invalid file: %s',
+	'reportcards:error:invalidreportimport' => 'Invalid Report Import',
 	'reportcards:error:invaliddirectory' => 'Invalid directory: %s',
 	'reportcards:error:nodata' => 'No Data',
+	'reportcards:error:deleteimport' => 'There was an error deleting the report card import',
+	'reportcards:error:editreportimport' => 'There was an error editing the report import',
+	'reportcards:error:requiredfields' => 'One or more required fields are missing',
 
 	// Other content
 );

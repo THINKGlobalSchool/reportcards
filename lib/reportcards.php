@@ -10,6 +10,37 @@
  */
 
 /**
+ * Prepare the edit form vars for report imports
+ *
+ * @param ElggObject $import
+ * @return array
+ */
+function reportcards_import_prepare_form_vars($import = NULL) {
+
+	// input names => defaults
+	$values = array(
+		'title' => '',
+		'guid' => NULL,
+	);
+
+	if ($import) {
+		foreach (array_keys($values) as $field) {
+			$values[$field] = $import->$field;
+		}
+	}
+
+	if (elgg_is_sticky_form('reportcards-import-edit-form')) {
+		foreach (array_keys($values) as $field) {
+			$values[$field] = elgg_get_sticky_value('reportcards-import-edit-form', $field);
+		}
+	}
+
+	elgg_clear_sticky_form('reportcards-import-edit-form');
+
+	return $values;
+}
+
+/**
  * Import with XML object
  *
  * @param string $file_name
@@ -47,78 +78,128 @@ function reportcards_import_from_file($file_name, $reports_directory, $log_outpu
 			$log .= "------------------------------------------------\r\n";
 
 			$report_count = $xml->reports->report->count();
-
-			if ($report_count) {
-				$log .= "Counted {$report_count} report(s)\r\n\r\n";
-				$reports = array();
-
-				foreach ($xml->reports->report as $report) {
-					$guid = (int)$report->user->guid;
-					$name = (string)$report->user->name;
-					$filename = (string)$report->filename;
-
-					$log .= "{$guid} - {$name} - {$filename}\r\n";
-					$reports[] = array(
-						'guid' => $guid,
-						'filename' => $filename,
-					);
-				}
-				
-				$log .= "\r\nProcessing {$report_count} Report(s)\r\n\r\n";
-				
-				foreach ($reports as $report) {
-					$user = get_entity($report['guid']);
-					if (elgg_instanceof($user, 'user')) {
-						$log .= "Found user: {$user->name}\r\n";
-						$report_origin = $reports_directory . $report['filename'];
-						if (file_exists($report_origin)) {
-							// Create file (@TODO this will need to be more advanced)
-							$report_entity = new ElggFile();
-							$report_entity->subtype = 'reportcardfile';
-							$report_entity->owner_guid = $user->guid;
-							$report_entity->access_id = ACCESS_PRIVATE; // Private to report user
-							$report_entity->title = $title;
-							$report_entity->report_year = $year;
-							$report_entity->report_period = $year;
-							$report_entity->report_published = $year;
-							$report_entity->report_filename = $report['filename'];
-
-							$prefix = 'reportcards/';
-
-							$report_entity->setFilename($prefix . $report_entity->report_filename);
-							
-							$filestore_name = $report_entity->getFilenameOnFilestore();
-							
-							try {
-								$report_entity->open('write');
-								$report_entity->write(file_get_contents($report_origin));
-								$report_entity->close();
-								$file_written = file_exists($filestore_name);
-							} catch (Exception $e) {
-								$file_written = FALSE;
-							}
 			
-							// Copy file to filestore and save entity
-							if ($file_written && $report_entity->save()) {
-								$download_url = elgg_get_site_url() . 'reportcards/download/' . $report_entity->guid;
-								$log .= "	-> Created report: {$report_entity->guid}\r\n";
-								$log .= "	-> Filename:       {$filestore_name}\r\n";
-								$log .= "	-> Download:       {$download_url}\r\n";
-							} else {
-								$log .= "	-> Error saving report entity!\r\n";
-							}
-						} else {
-							$log .= "	-> Cannot find report file: {$report['filename']}\r\n";
-						}
-						$log .= "\r\n";
-					} else {
-						$log .= "Invalid user for guid: {$report['guid']}\r\n";
+			// Check for report import container with this publish date
+			$report_containers = elgg_get_entities(array(
+				'type' => 'object',
+				'subtype' => 'reportcard_import_container',
+				'limit' => 1,
+			));
+			
+			// If we have a report
+			if (!$report_containers) {
+				// Owned by site?
+				$site = elgg_get_site_entity();
+				
+				$report_container = new ElggObject();
+				$report_container->subtype = 'reportcard_import_container';
+				$report_container->owner_guid = $site->guid;
+				$report_container->access_id = ACCESS_LOGGED_IN;
+				$report_container->title = $title;
+				
+				// @TODO Little redundant?
+				$report_container->report_year = $year;
+				$report_container->report_period = $period;
+				$report_container->report_published = $period;
+				$report_container->save();
+				
+				// Double-tap save to set time created to report published date
+				$report_container->time_created = $published;
+				$report_container->save();
+				
+				$log .= "Created Report Import Container: {$report_container->guid}\r\n";
+				
+				if ($report_count) {
+					$log .= "Counted {$report_count} report(s)\r\n\r\n";
+					$reports = array();
+
+					foreach ($xml->reports->report as $report) {
+						$guid = (int)$report->user->guid;
+						$name = (string)$report->user->name;
+						$filename = (string)$report->filename;
+
+						$log .= "{$guid} - {$name} - {$filename}\r\n";
+						$reports[] = array(
+							'guid' => $guid,
+							'filename' => $filename,
+						);
 					}
+
+					$log .= "\r\nProcessing {$report_count} Report(s)\r\n\r\n";
+
+					foreach ($reports as $report) {
+						$user = get_entity($report['guid']);
+						if (elgg_instanceof($user, 'user')) {
+							$log .= "Found user: {$user->name}\r\n";
+							$report_origin = $reports_directory . $report['filename'];
+							if (file_exists($report_origin)) {
+								// Create file (@TODO this will need to be more advanced)
+								$report_entity = new ElggFile();
+								$report_entity->subtype = 'reportcardfile';
+								$report_entity->owner_guid = $user->guid;
+								$report_entity->access_id = ACCESS_PRIVATE; // Private to report user
+								$report_entity->title = $title;
+								$report_entity->report_year = $year;
+								$report_entity->report_period = $period;
+								$report_entity->report_published = $published;
+								$report_entity->report_filename = $report['filename'];
+
+								$prefix = 'reportcards/';
+
+								$report_entity->setFilename($prefix . $report_entity->report_filename);
+
+								$filestore_name = $report_entity->getFilenameOnFilestore();
+
+								try {
+									$report_entity->open('write');
+									$report_entity->write(file_get_contents($report_origin));
+									$report_entity->close();
+									$file_written = file_exists($filestore_name);
+								} catch (Exception $e) {
+									$file_written = FALSE;
+								}
+
+								// Copy file to filestore and save entity
+								if ($file_written && $report_entity->save()) {
+									// Set time_created on entity to the published date
+									$report_entity->time_created = $published;
+									$report_entity->save();
+									
+									// Create relationship between this report, and the container
+									add_entity_relationship(
+										$report_entity->guid,
+										REPORTCARD_IMPORT_RELATIONSHIP,
+										$report_container->guid
+									);
+									
+									$download_url = $report_entity->getURL();
+									$log .= "	-> Created report: {$report_entity->guid}\r\n";
+									$log .= "	-> Filename:       {$filestore_name}\r\n";
+									$log .= "	-> Download:       {$download_url}\r\n";
+									$log .= "	-> Container:      {$report_container->guid}\r\n";
+								} else {
+									$log .= "	-> Error saving report entity!\r\n";
+								}
+							} else {
+								$log .= "	-> Cannot find report file: {$report['filename']}\r\n";
+							}
+							$log .= "\r\n";
+						} else {
+							// No user!
+							$log .= "Invalid user for guid: {$report['guid']}\r\n";
+						}
+					}
+				} else {
+					// No reports found
+					$log .= "No reports";
 				}
 				
 			} else {
-				// No reports found
-				$log .= "No reports";
+				// We already have a report container.. don't import again
+				$container = $report_containers[0];
+				$url = $container->getURL();
+				$title = $container->title;
+				$log .= "Report import exists for date: {$published} - See: <a target='_blank' href='{$url}'>$title</a>\r\n";
 			}
 		} else {
 			// XML file was invalid
@@ -143,7 +224,7 @@ function reportcards_reset($log_output = FALSE) {
 	set_time_limit(0);
 	$options = array(
 		'type' => 'object',
-		'subtype' => 'reportcardfile',
+		'subtypes' => array('reportcardfile', 'reportcard_import_container'),
 	);
 	
 	$entities = new ElggBatch('elgg_get_entities', $options);
@@ -151,9 +232,20 @@ function reportcards_reset($log_output = FALSE) {
 	$log .= "DELETING REPORT CARDS:\r\n";
 	$log .= "----------------------\r\n\r\n";
 	
+	$count = 0;
 	foreach ($entities as $entity) {
-		$log .= "Deleting: " . $entity->guid . "\r\n";	
+		if ($entity->getSubtype() == 'reportcard_import_container') {
+			$log .= "Deleting Container: " . $entity->guid . "\r\n";	
+		} else if ($entity->getSubtype() == 'reportcardfile') {
+			$log .= "Deleting File: " . $entity->guid . "\r\n";	
+		}
+
 		$entity->delete();
+		$count++;
+	}
+	
+	if (!$count) {
+		$log .= "Nothing to delete..\r\n";
 	}
 
 	if ($log_output) {

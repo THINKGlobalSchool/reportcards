@@ -10,5 +10,9 @@
  */
 ?>
 /*<style>*/
-
+.reportcard-listing-link {
+	display: inline-block;
+	margin-top: 5px;
+	font-weight: bold;
+}
 /*</style>*/

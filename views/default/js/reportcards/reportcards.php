@@ -50,7 +50,7 @@ elgg.reportcards.importClick = function(event) {
 
 elgg.reportcards.resetClick = function(event) {
 	if (confirm($(this).attr('title'))) {
-		$('#reportcards-management-output').html("<div class='elgg-ajax-loader'></div>");
+		$('#reportcards-reset-output').html("<div class='elgg-ajax-loader'></div>");
 
 		// Fire reset action
 		elgg.action('reportcards/reset', {
@@ -66,7 +66,7 @@ elgg.reportcards.resetClick = function(event) {
 				} else {
 					content = data.system_messages.error;
 				}
-				$('#reportcards-management-output').html(content);
+				$('#reportcards-reset-output').html(content);
 			}
 		});
 	}
