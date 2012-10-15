@@ -18,12 +18,17 @@
  * @return bool
  */
 function reportcards_import_from_file($file_name, $reports_directory, $log_output = FALSE) {
+	set_time_limit(0);
+
 	if ($log_output) {
 		$log = "<pre>";
 	}
 
 	// Make sure file and report directory exist
 	if (file_exists($file_name) && file_exists($reports_directory)) {
+		// Make sure we have one trailing slash on directory string
+		$reports_directory = rtrim($reports_directory, '/').'/';
+		
 		// Load XML
 		$xml = simplexml_load_file($file_name);
 
@@ -134,7 +139,8 @@ function reportcards_import_from_file($file_name, $reports_directory, $log_outpu
 /**
  * Delete all system report cards
  */
-function reportcards_reset() {
+function reportcards_reset($log_output = FALSE) {
+	set_time_limit(0);
 	$options = array(
 		'type' => 'object',
 		'subtype' => 'reportcardfile',
@@ -142,9 +148,31 @@ function reportcards_reset() {
 	
 	$entities = new ElggBatch('elgg_get_entities', $options);
 	
+	$log .= "DELETING REPORT CARDS:\r\n";
+	$log .= "----------------------\r\n\r\n";
+	
 	foreach ($entities as $entity) {
-		elgg_dump("Deleting: " . $entity->guid);
-		elgg_dump($entity->getFilenameOnFilestore());	
+		$log .= "Deleting: " . $entity->guid . "\r\n";	
 		$entity->delete();
 	}
+
+	if ($log_output) {
+		return "<pre>" . $log . "</pre>";
+	}
+}
+
+// Helper function to clean up file size
+function reportcards_format_size($path) {
+    $bytes = sprintf('%u', filesize($path));
+
+    if ($bytes > 0) {
+        $unit = intval(log($bytes, 1024));
+        $units = array('B', 'KB', 'MB', 'GB');
+
+        if (array_key_exists($unit, $units) === true)
+        {
+            return sprintf('%d %s', $bytes / pow(1024, $unit), $units[$unit]);
+        }
+    }
+    return $bytes;
 }

@@ -27,6 +27,9 @@ function reportcards_init() {
 	elgg_register_simplecache_view('js/reportcards/reportcards');	
 	elgg_register_js('elgg.reportcards', $nm_js);
 	
+	// Pagesetup event handler
+	elgg_register_event_handler('pagesetup','system','reportcards_pagesetup');
+	
 	elgg_extend_view('tgstheme/modules/profile', 'reportcards/modules/student');
 	
 	// Register 'reportcards' page handler
@@ -34,6 +37,12 @@ function reportcards_init() {
 	
 	// Register run once for report cards for initial setup
 	run_function_once("reportcards_run_once");
+	
+	// Register actions
+	$action_base = elgg_get_plugins_path() . 'reportcards/actions/reportcards';
+	elgg_register_action('reportcards/import_settings', "$action_base/import_settings.php", 'admin');
+	elgg_register_action('reportcards/import', "$action_base/import.php", 'admin');
+	elgg_register_action('reportcards/reset', "$action_base/reset.php", 'admin');
 
 	//elgg_load_css('elgg.reportcards');
 	//elgg_load_js('elgg.reportcards');
@@ -67,6 +76,19 @@ function reportcards_page_handler($page) {
 
 	$body = elgg_view_layout('one_column', $params);
 	echo elgg_view_page($title, $body);
+}
+
+/**
+* Pagesetup event handler
+* 
+* @return NULL
+ */
+function reportcards_pagesetup() {
+	// Admin menu item(s)
+	if (elgg_in_context('admin')) {
+		elgg_register_admin_menu_item('administer', 'import', 'reportcards');
+		elgg_register_admin_menu_item('administer', 'manage', 'reportcards');
+	}
 }
 
 /**

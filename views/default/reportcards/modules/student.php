@@ -17,8 +17,6 @@ $report_cards = elgg_get_entities(array(
 	'owner_guid' => elgg_get_logged_in_user_guid(),
 ));
 
-elgg_dump($report_cards);
-
 //$body = <<<HTML
 //HTML;
 $report_body = '';
