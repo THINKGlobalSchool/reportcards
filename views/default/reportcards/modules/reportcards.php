@@ -63,6 +63,9 @@ if ($display == 'latest') {
 			'relationship_guid' => $imports[0]->guid,
 			'inverse_relationship' => TRUE
 		);
+	} else {
+		// Nothing!
+		$filter_reportcard_options = array();
 	}
 } else if ($display == 'all') {	
 	$report_metadata_options = array(
