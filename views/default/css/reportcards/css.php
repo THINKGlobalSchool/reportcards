@@ -15,4 +15,8 @@
 	margin-top: 5px;
 	font-weight: bold;
 }
+
+.reportcards-no-results {
+	padding-top: 5px;
+}
 /*</style>*/

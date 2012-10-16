@@ -34,10 +34,10 @@ function reportcards_init() {
 	elgg_register_event_handler('pagesetup','system','reportcards_pagesetup');
 	
 	// Extend student homepage module
-	elgg_extend_view('tgstheme/modules/profile', 'reportcards/modules/student');
+	elgg_extend_view('tgstheme/modules/profile', 'reportcards/student');
 	
 	// Extend parent child profile module
-	elgg_extend_view('parentportal/module/profile', 'reportcards/modules/parent');
+	elgg_extend_view('parentportal/module/profile', 'reportcards/parent');
 	
 	// Register 'reportcards' page handler
 	elgg_register_page_handler('reportcards', 'reportcards_page_handler');
@@ -64,6 +64,10 @@ function reportcards_init() {
 	elgg_register_action('reportcards/reportimport/edit', "$action_base/reportimport/edit.php", 'admin');
 
 	elgg_load_css('elgg.reportcards');
+	elgg_load_js('elgg.reportcards');
+
+	// Ajax whitelist
+	elgg_register_ajax_view('reportcards/modules/reportcards');
 }
 
 /* Report Cards Page Handler */

@@ -14,10 +14,23 @@ elgg.provide('elgg.reportcards');
 
 // Init function
 elgg.reportcards.init = function () {	
+	// Click handler for admin import
 	$(document).delegate('.reportcards-import-button', 'click', elgg.reportcards.importClick);
+
+	// Click handler for admin reset
 	$(document).delegate('.reportcards-reset-button', 'click', elgg.reportcards.resetClick);
+
+	// Change handler for display filter change
+	$(document).delegate('#reportcards-module-filter-display', 'change', elgg.reportcards.filterDisplayChange);
+	
+	// Change handler for period filter change
+	$(document).delegate('#reportcards-module-filter-period', 'change', elgg.reportcards.filterPeriodChange);
+	
+	// Change handler for year filter change
+	$(document).delegate('#reportcards-module-filter-year', 'change', elgg.reportcards.filterYearChange);
 }
 
+// Click handler for admin import
 elgg.reportcards.importClick = function(event) {
 	var filename = $(this).parent().find('input[name=import_filename]').val();
 	var directory = $(this).parent().find('input[name=import_directory]').val();
@@ -48,6 +61,7 @@ elgg.reportcards.importClick = function(event) {
 	event.preventDefault();
 }
 
+// Click handler for admin reset
 elgg.reportcards.resetClick = function(event) {
 	if (confirm($(this).attr('title'))) {
 		$('#reportcards-reset-output').html("<div class='elgg-ajax-loader'></div>");
@@ -70,6 +84,36 @@ elgg.reportcards.resetClick = function(event) {
 			}
 		});
 	}
+	event.preventDefault();
+}
+
+// Change handler for display filter change
+elgg.reportcards.filterDisplayChange = function(event) {
+	$module = $('#reportcards-module');
+	$display_input = $module.find('div.options > input#display');
+	$display_input.val(escape($(this).val()));
+
+	elgg.modules.genericmodule.populateContainer($module);
+	event.preventDefault();
+}
+
+// Change handler for display filter change
+elgg.reportcards.filterPeriodChange = function(event) {
+	$module = $('#reportcards-module');
+	$period_input = $module.find('div.options > input#period');
+	$period_input.val(escape($(this).val()));
+
+	elgg.modules.genericmodule.populateContainer($module);
+	event.preventDefault();
+}
+
+// Change handler for display filter change
+elgg.reportcards.filterYearChange = function(event) {
+	$module = $('#reportcards-module');
+	$year_input = $module.find('div.options > input#year');
+	$year_input.val(escape($(this).val()));
+
+	elgg.modules.genericmodule.populateContainer($module);
 	event.preventDefault();
 }
 

@@ -37,6 +37,11 @@ $english = array(
 	'reportcards:label:reportcardimports' => 'Report Card Imports',
 	'reportcards:label:scripts' => 'Scripts',
 	'reportcards:label:noresults' => 'No Results',
+	'reportcards:label:latest' => 'Latest',
+	'reportcards:label:all' => 'All',
+	'reportcards:label:display' => 'Display',
+	'reportcards:label:year' => 'Year',
+	'reportcards:label:period' => 'Period',
 
 	// River
 
