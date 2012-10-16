@@ -84,8 +84,9 @@ function reportcards_import_from_file($file_name, $reports_directory, $log_outpu
 				'type' => 'object',
 				'subtype' => 'reportcard_import_container',
 				'limit' => 1,
+				'wheres' => "e.time_created = {$published}",
 			));
-			
+
 			// If we have a report
 			if (!$report_containers) {
 				// Owned by site?
@@ -96,11 +97,9 @@ function reportcards_import_from_file($file_name, $reports_directory, $log_outpu
 				$report_container->owner_guid = $site->guid;
 				$report_container->access_id = ACCESS_LOGGED_IN;
 				$report_container->title = $title;
-				
-				// @TODO Little redundant?
 				$report_container->report_year = $year;
 				$report_container->report_period = $period;
-				$report_container->report_published = $period;
+				$report_container->report_published = $published;
 				$report_container->save();
 				
 				// Double-tap save to set time created to report published date
@@ -141,7 +140,8 @@ function reportcards_import_from_file($file_name, $reports_directory, $log_outpu
 								$report_entity->title = $title;
 								$report_entity->report_year = $year;
 								$report_entity->report_period = $period;
-								$report_entity->report_published = $published;
+								$report_entity
+								->report_published = $published;
 								$report_entity->report_filename = $report['filename'];
 
 								$prefix = 'reportcards/';

@@ -36,20 +36,20 @@ if (is_dir($import_directory)) {
 				'value' => elgg_echo('reportcards:label:import'),
 			));
 			
-			$import_filename = elgg_view('input/hidden', array(
+			$import_filename_input = elgg_view('input/hidden', array(
 				'name' => 'import_filename',
 				'value' => $manifest,
 			));
 			
-			$import_directory = elgg_view('input/hidden', array(
+			$import_directory_input = elgg_view('input/hidden', array(
 				'name' => 'import_directory',
 				'value' => $import_directory,
 			));
 			
 			$manifests_table .= "<td>
 									$import
-									$import_filename 
-									$import_directory
+									$import_filename_input
+									$import_directory_input
 			</td>";
 
 			$manifests_table .= "</tr>";
