@@ -44,7 +44,6 @@ div#reportcards-pp-notification {
 	margin-bottom: 10px;
     position: relative;
     width: auto;
-    z-index: 5000;
 	display: none;
 	text-align: center;
 	-webkit-box-shadow: 0 2px 2px #444;
