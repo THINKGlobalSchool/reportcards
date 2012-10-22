@@ -24,4 +24,8 @@ $module = elgg_view('modules/genericmodule', array(
 	), 
 ));
 
+$options = array(
+	'class' => 'reportcard-pp-module',
+);
+
 echo elgg_view_module('featured', elgg_echo('reportcards:label:reportcards'), $module, $options);

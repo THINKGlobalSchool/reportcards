@@ -122,6 +122,7 @@ function reportcards_pagesetup() {
 			// Load CSS/JS
 			elgg_load_css('elgg.reportcards');
 			elgg_load_js('elgg.reportcards');
+			elgg_load_js('jquery.easing');
 		
 			// Extend student homepage module
 			elgg_extend_view('tgstheme/modules/profile', 'reportcards/student');
