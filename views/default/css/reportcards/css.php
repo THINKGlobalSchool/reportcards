@@ -21,34 +21,44 @@
 }
 
 @media screen {
-	body > div#reportcards-notification {
+	body > div#reportcards-home-notification {
 		position: fixed;
 	}
 }
 
-div#reportcards-notification {
-	background: rgba(255, 255, 255, 0.06);
-	border-color: #DDD;
+div#reportcards-home-notification,
+div#reportcards-pp-notification {
+	background: #162024;
+	/**border-color: #85161D;
     border-style: solid;
-    border-width: 0 2px 2px;
-	-webkit-border-radius: 0 0 4px 4px;
-	-moz-border-radius: 0 0 4px 4px;
-	border-radius: 0 0 4px 4px;
+    border-width: 0 2px 2px;**/
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
     top: 0;
     color: #FFF;
     font-weight: bold;
-    height: 0;
-    left: 50%;
-	margin-left: -253px; /* 179px *//* Half the width for horizontal centering */
+    height: auto;
     overflow: hidden;
-    padding: 2px 10px 4px;
-    position: absolute;
-    width: 395px;
+    padding: 4px 10px;
+	margin-bottom: 10px;
+    position: relative;
+    width: auto;
     z-index: 5000;
 	display: none;
 	text-align: center;
-	-webkit-box-shadow: 4px 5px 5px #333;
-	-moz-box-shadow: 4px 5px 5px #333;
-	box-shadow: 4px 5px 5px #333;
+	-webkit-box-shadow: 0 2px 2px #444;
+	-moz-box-shadow: 0 2px 2px #444;
+	box-shadow: 0 2px 2px #444;
 }
+
+#reportcards-notification-content p {
+	display: inline;
+}
+
+a.reportcards-notification-shortcut {
+	margin-left: 10px;
+	color: #EEE;
+}
+
 /*</style>*/

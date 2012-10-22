@@ -11,8 +11,19 @@
 
 $banner_content = elgg_get_plugin_setting('banner_content', 'reportcards');
 
+if (elgg_in_context('home')) {
+	$id = 'reportcards-home-notification';
+} else if (elgg_in_context('parentportal') && get_input('tab') != 'student') {
+	$id = 'reportcards-pp-notification';	
+	$banner_content .= elgg_view('output/url', array(
+		'text' => 'Click Here',
+		'href' => elgg_get_site_url() . 'parentportal?tab=student#rc',
+		'class' => 'reportcards-notification-shortcut',
+	));
+}
+
 $content = <<<HTML
-	<div id='reportcards-notification'>
+	<div id='$id'>
 		<div id='reportcards-notification-content'>$banner_content</div>
 	</div>
 HTML;

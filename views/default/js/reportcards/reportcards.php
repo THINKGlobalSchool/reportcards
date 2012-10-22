@@ -29,10 +29,24 @@ elgg.reportcards.init = function () {
 	// Change handler for year filter change
 	$(document).delegate('#reportcards-module-filter-year', 'change', elgg.reportcards.filterYearChange);
 
-	$("div#reportcards-notification")
-		.appendTo('.elgg-page-header')
-		.css({height: 0, display: 'block'})
-		.animate({ height: '18px' }, 'slow');
+/**$("div#reportcards-notification")
+	.appendTo('.elgg-layout-one-sidebar-right')
+	.slideToggle('slow');**/
+
+
+	// Add home notification
+	$('.elgg-layout-one-sidebar-right > .elgg-home-right')
+		.prepend($("div#reportcards-home-notification"));
+	
+	// Slide in home notification	
+	$("div#reportcards-home-notification").slideToggle('slow');
+
+	// Add pp notification
+	$('#pp_top')
+		.append($("div#reportcards-pp-notification"));
+		
+	// Slide in home notification	
+	$("div#reportcards-pp-notification").slideToggle('slow');
 }
 
 // Click handler for admin import
@@ -122,4 +136,12 @@ elgg.reportcards.filterYearChange = function(event) {
 	event.preventDefault();
 }
 
+// Hook into module populated event for reportcards module to draw attention to it
+elgg.reportcards.modulePopulated = function(event, type, params, value) {
+	if (params.container.attr('id') == 'reportcards-module' && window.location.hash && window.location.hash == '#rc') {
+		$('.reportcard-pp-module').effect("pulsate", { times: 3 }, 600);
+	}
+}
+
 elgg.register_hook_handler('init', 'system', elgg.reportcards.init);
+elgg.register_hook_handler('generic_populated', 'modules', elgg.reportcards.modulePopulated);
