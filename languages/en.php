@@ -42,6 +42,9 @@ $english = array(
 	'reportcards:label:display' => 'Display',
 	'reportcards:label:year' => 'Year',
 	'reportcards:label:period' => 'Period',
+	'reportcards:label:banner' => 'Report Cards Banner',
+	'reportcards:label:enablebanner' => 'Enable report card banner',
+	'reportcards:label:bannercontent' => 'Banner content',
 
 	// River
 
@@ -53,6 +56,7 @@ $english = array(
 	'reportcards:success:importdirectory' => 'Successfully set import directory',
 	'reportcards:success:deleteimport' => 'Successfully deleted report card import',
 	'reportcards:success:editreportimport' => 'Successfully edited report card import',
+	'reportcards:success:banner' => 'Successfully updated report card banner settings',
 	'reportcards:error:importdirectory' => 'There was an error setting the import directory',
 	'reportcards:error:createimportdirectory' => 'There was an error creating the import directory',
 	'reportcards:error:invalidfile' => 'Invalid file: %s',
