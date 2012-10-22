@@ -54,6 +54,7 @@ function reportcards_init() {
 	elgg_register_action('reportcards/import_settings', "$action_base/import_settings.php", 'admin');
 	elgg_register_action('reportcards/import', "$action_base/import.php", 'admin');
 	elgg_register_action('reportcards/reset', "$action_base/reset.php", 'admin');
+	elgg_register_action('reportcards/banner', "$action_base/banner.php", 'admin');
 	elgg_register_action('reportcards/reportimport/delete', "$action_base/reportimport/delete.php", 'admin');
 	elgg_register_action('reportcards/reportimport/edit', "$action_base/reportimport/edit.php", 'admin');
 
@@ -105,6 +106,10 @@ function reportcards_pagesetup() {
 
 	// We're only going to extend views if we're in a context where report cards should appear
 	if (elgg_in_context('home') || elgg_in_context('parentportal')) {
+		if (elgg_get_plugin_setting('banner_enable', 'reportcards')) {
+			elgg_extend_view('footer/analytics', 'reportcards/banner');
+		}
+		
 		// Count reportcard imports
 		$imports_count = elgg_get_entities(array(
 			'type' => 'object',

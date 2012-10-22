@@ -28,6 +28,11 @@ elgg.reportcards.init = function () {
 	
 	// Change handler for year filter change
 	$(document).delegate('#reportcards-module-filter-year', 'change', elgg.reportcards.filterYearChange);
+
+	$("div#reportcards-notification")
+		.appendTo('.elgg-page-header')
+		.css({height: 0, display: 'block'})
+		.animate({ height: '18px' }, 'slow');
 }
 
 // Click handler for admin import
