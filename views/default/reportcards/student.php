@@ -25,4 +25,4 @@ $options = array(
 	'class' => 'tgstheme-module',
 );
 
-echo elgg_view_module('featured', elgg_echo('reportcards:label:reportcards'), $module, $options);
+echo "<div class='reportcard-home-module'>" . elgg_view_module('featured', elgg_echo('reportcards:label:reportcards'), $module, $options) . "</div>";

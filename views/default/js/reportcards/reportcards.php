@@ -35,7 +35,7 @@ elgg.reportcards.init = function () {
 
 
 	// Add home notification
-	$('.elgg-layout-one-sidebar-right > .elgg-home-right')
+	$('.reportcard-home-module')
 		.prepend($("div#reportcards-home-notification"));
 	
 	// Slide in home notification	

@@ -217,6 +217,16 @@ function reportcards_import_from_file($file_name, $reports_directory, $log_outpu
 	}
 }
 
+
+// Recursive glob()
+function glob_recursive($pattern, $flags = 0) {
+    $files = glob($pattern, $flags);
+    foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir) {
+        $files = array_merge($files, glob_recursive($dir.'/'.basename($pattern), $flags));
+    }
+    return $files;
+}
+
 /**
  * Delete all system report cards
  */
@@ -225,6 +235,7 @@ function reportcards_reset($log_output = FALSE) {
 	$options = array(
 		'type' => 'object',
 		'subtypes' => array('reportcardfile', 'reportcard_import_container'),
+		'limit' => 0,
 	);
 	
 	$entities = new ElggBatch('elgg_get_entities', $options);

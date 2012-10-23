@@ -14,7 +14,7 @@ $import_directory = elgg_extract('import_directory', $vars);
 // Can't be too careful.. check for directory
 if (is_dir($import_directory)) {
 	// Find manifests in directory
-	$manifests = glob($import_directory . "/*.xml");
+	$manifests = glob_recursive($import_directory . "/*.xml");
 	
 	// If we've got one (or more)
 	if (count($manifests) > 0) {
@@ -43,7 +43,7 @@ if (is_dir($import_directory)) {
 			
 			$import_directory_input = elgg_view('input/hidden', array(
 				'name' => 'import_directory',
-				'value' => $import_directory,
+				'value' => dirname($manifest),
 			));
 			
 			$manifests_table .= "<td>
