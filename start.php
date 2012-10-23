@@ -106,10 +106,6 @@ function reportcards_pagesetup() {
 
 	// We're only going to extend views if we're in a context where report cards should appear
 	if (elgg_in_context('home') || elgg_in_context('parentportal')) {
-		if (elgg_get_plugin_setting('banner_enable', 'reportcards')) {
-			elgg_extend_view('footer/analytics', 'reportcards/banner');
-		}
-		
 		// Count reportcard imports
 		$imports_count = elgg_get_entities(array(
 			'type' => 'object',
@@ -124,8 +120,26 @@ function reportcards_pagesetup() {
 			elgg_load_js('elgg.reportcards');
 			elgg_load_js('jquery.easing');
 		
-			// Extend student homepage module
-			elgg_extend_view('tgstheme/modules/profile', 'reportcards/student');
+			// Count user reports
+			$user_report_count = elgg_get_entities(array(
+				'type' => 'object',
+				'subtype' => 'reportcardfile',
+				'count' => TRUE,
+				'owner_guid' => elgg_get_logged_in_user_guid(),
+			));
+			
+			// Only display module if user actually has report cards
+			if ($user_report_count) {
+				// Extend student homepage module
+				elgg_extend_view('tgstheme/modules/profile', 'reportcards/student');
+				
+				// Don't show the notification either..
+				$hide_banner = TRUE;
+			}
+
+			if (!$hide_banner_home && elgg_get_plugin_setting('banner_enable', 'reportcards')) {
+				elgg_extend_view('footer/analytics', 'reportcards/banner');
+			}
 
 			// Extend parent child profile module
 			elgg_extend_view('parentportal/module/profile', 'reportcards/parent');
