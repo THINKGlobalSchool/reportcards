@@ -16,6 +16,9 @@ elgg.provide('elgg.reportcards');
 elgg.reportcards.init = function () {	
 	// Click handler for admin import
 	$(document).delegate('.reportcards-import-button', 'click', elgg.reportcards.importClick);
+	
+	// Click handler for admin copy
+	$(document).delegate('.reportcards-copy-button', 'click', elgg.reportcards.copyClick);
 
 	// Click handler for admin reset
 	$(document).delegate('.reportcards-reset-button', 'click', elgg.reportcards.resetClick);
@@ -74,6 +77,33 @@ elgg.reportcards.importClick = function(event) {
 				content = data.system_messages.error;
 			}
 			$('#reportcards-import-output').html(content);
+		}
+	});
+
+	event.preventDefault();
+}
+
+// Click handler for admin import
+elgg.reportcards.copyClick = function(event) {	
+	$('#reportcards-remote-output').html("<div class='elgg-ajax-loader'></div>");
+	
+	// Fire remote copy action
+	elgg.action('reportcards/remote_copy', {
+		data: {
+			//filename: filename,
+		},
+		success: function(data) {
+			if (data.status != -1) {
+				var content = '';
+				if (data.output) {
+					content = data.output;
+				} else {
+					content = elgg.echo('reportcards:error:nodata');
+				}
+			} else {
+				content = data.system_messages.error;
+			}
+			$('#reportcards-remote-output').html(content);
 		}
 	});
 

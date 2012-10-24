@@ -11,20 +11,22 @@
 elgg_load_js('elgg.reportcards');
 
 // Display import settings form
-echo elgg_view_form('reportcards/import_settings');
+$import_directory_title = elgg_echo('reportcards:label:directory');
+$import_directory_form = elgg_view_form('reportcards/import_settings');
 
-// Display import dirctory info
+echo elgg_view_module('inline', $import_directory_title, $import_directory_form);
+
+// Display import dirctory info and remote copy form
 if ($import_directory = elgg_get_plugin_setting('import_directory', 'reportcards')) {
-	$header = elgg_view_title(elgg_echo('reportcards:label:directoryinfo'));
+	$remote_copy_title = elgg_echo('reportcards:label:remotecopy');
+	$remote_copy_form = elgg_view_form('reportcards/remote_copy');
+
+	echo elgg_view_module('inline', $remote_copy_title, $remote_copy_form);
+	echo "<div id='reportcards-remote-output'></div>";
+	
+	$import_form_title = elgg_echo('reportcards:label:directoryinfo');
 	$import_form = elgg_view_form('reportcards/import', array(), array('import_directory' => $import_directory));
 	
-	$content = <<<HTML
-		<br />
-		$header
-		$import_form
-		<div id='reportcards-import-output'>
-		</div>
-HTML;
-
-	echo $content;
+	echo elgg_view_module('inline', $import_form_title, $import_form);
+	echo "<div id='reportcards-import-output'></div>";
 }
