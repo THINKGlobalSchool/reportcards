@@ -23,8 +23,6 @@ if (!$import_directory) {
 	elgg_delete_admin_notice('import_directory_unset');
 }
 
-$directory_label = elgg_echo('reportcards:label:directory');
-
 $directory_input = elgg_view('input/text', array(
 	'name' => 'import_directory',
 	'value' => $import_directory,
@@ -37,7 +35,6 @@ $submit_input = elgg_view('input/submit', array(
 
 $content = <<<HTML
 	<div>
-		<label>$directory_label</label>
 		$directory_input
 	</div>
 	<div>

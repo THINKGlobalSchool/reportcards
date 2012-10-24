@@ -53,6 +53,7 @@ function reportcards_init() {
 	$action_base = elgg_get_plugins_path() . 'reportcards/actions/reportcards';
 	elgg_register_action('reportcards/import_settings', "$action_base/import_settings.php", 'admin');
 	elgg_register_action('reportcards/import', "$action_base/import.php", 'admin');
+	elgg_register_action('reportcards/remote_copy', "$action_base/remote_copy.php", 'admin');
 	elgg_register_action('reportcards/reset', "$action_base/reset.php", 'admin');
 	elgg_register_action('reportcards/banner', "$action_base/banner.php", 'admin');
 	elgg_register_action('reportcards/reportimport/delete', "$action_base/reportimport/delete.php", 'admin');

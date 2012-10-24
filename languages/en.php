@@ -45,6 +45,8 @@ $english = array(
 	'reportcards:label:banner' => 'Report Cards Banner',
 	'reportcards:label:enablebanner' => 'Enable report card banner',
 	'reportcards:label:bannercontent' => 'Banner content',
+	'reportcards:label:remotecopy' => 'Copy Aspen Archives',
+	'reportcards:label:startcopy' => 'Start Copy',
 
 	// River
 
