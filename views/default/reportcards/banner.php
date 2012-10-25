@@ -9,11 +9,15 @@
  * @link http://www.thinkglobalschool.com/
  */
 
+if (get_input('tab') == 'student') {
+	return FALSE;
+}
+
 $banner_content = elgg_get_plugin_setting('banner_content', 'reportcards');
 
 if (elgg_in_context('home')) {
 	$id = 'reportcards-home-notification';
-} else if (elgg_in_context('parentportal') && get_input('tab') != 'student') {
+} else if (elgg_in_context('parentportal')) {
 	$id = 'reportcards-pp-notification';	
 	$banner_content .= elgg_view('output/url', array(
 		'text' => 'Click Here',
