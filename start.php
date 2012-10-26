@@ -133,12 +133,13 @@ function reportcards_pagesetup() {
 			if ($user_report_count) {
 				// Extend student homepage module
 				elgg_extend_view('tgstheme/modules/profile', 'reportcards/student');
-				
-				// Don't show the notification either..
+
+				$hide_banner = FALSE;
+			} else {
 				$hide_banner = TRUE;
 			}
 
-			if (!$hide_banner_home && elgg_get_plugin_setting('banner_enable', 'reportcards')) {
+			if ((!$hide_banner || elgg_in_context('parentportal')) && elgg_get_plugin_setting('banner_enable', 'reportcards')) {
 				elgg_extend_view('footer/analytics', 'reportcards/banner');
 			}
 
