@@ -31,7 +31,7 @@ $info = elgg_view_menu('simpleicon-entity', array(
 
 $owner = $reportcard_file->getOwnerEntity();
 
-$info .= "<a class='reportcard-listing-link' href=\"{$reportcard_file->getURL()}\">{$owner->name} - {$reportcard_file->title}</a>";
+$info .= "<a class='reportcard-listing-link' target='_blank' href=\"{$reportcard_file->getURL()}\">{$owner->name} - {$reportcard_file->title}</a>";
 
 $icon = "<a href='{$reportcard_file->getURL()}'><img style='margin-left: -3px;' height='22' width='22' src='{$reportcard_file->getIconURL('tiny')}' border='0' /></a>";
 
