@@ -35,5 +35,18 @@ $info .= "<a class='reportcard-listing-link' target='_blank' href=\"{$reportcard
 
 $icon = "<a href='{$reportcard_file->getURL()}'><img style='margin-left: -3px;' height='22' width='22' src='{$reportcard_file->getIconURL('tiny')}' border='0' /></a>";
 
+
+if (elgg_in_context('admin')) {
+	$metadata = elgg_view_menu('entity', array(
+		'entity' => $reportcard_file,
+		'handler' => 'reportcards/reportimport',
+		'sort_by' => 'priority',
+		'class' => 'elgg-menu-hz',
+	));
+	
+	$info .= $metadata;
+}
+
+
 //display
 echo elgg_view_image_block($icon, $info);

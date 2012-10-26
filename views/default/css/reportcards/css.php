@@ -60,4 +60,10 @@ a.reportcards-notification-shortcut {
 	color: #EEE;
 }
 
+.reportcards-admin-statistics-userlink {
+	display: block;
+	font-weight: bold;
+	margin-top: 5px;
+}
+
 /*</style>*/

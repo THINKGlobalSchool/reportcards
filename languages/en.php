@@ -18,6 +18,7 @@ $english = array(
 	'admin:reportcards:manage' => 'Manage',
 	'admin:reportcards:viewimport' => 'View Report Card Import',
 	'admin:reportcards:editimport' => 'Edit Report Card Import',
+	'admin:reportcards:statistics' => 'Report Card Statistics',
 
 	// Page titles
 
@@ -47,6 +48,12 @@ $english = array(
 	'reportcards:label:bannercontent' => 'Banner content',
 	'reportcards:label:remotecopy' => 'Copy Aspen Archives',
 	'reportcards:label:startcopy' => 'Start Copy',
+	'reportcards:label:viewstatistics' => 'View Statistics',
+	'reportcards:label:viewers' => 'Viewers',
+	'reportcards:label:totalviews' => 'Total Views',
+	'reportcards:label:uniqueviews' => 'Unique Views',
+	'reportcards:label:viewinfo' => 'View info',
+	'reportcards:label:noviews' => 'No one has viewed this report card',
 
 	// River
 

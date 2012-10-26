@@ -193,10 +193,18 @@ function reportcards_file_icon_url_override($hook, $type, $returnvalue, $params)
  * Reportcards entity plugin hook
  */
 function reportcards_setup_entity_menu($hook, $type, $return, $params) {
-
 	$entity = $params['entity'];
-	
+
 	if (elgg_instanceof($entity, 'object', 'reportcardfile')) {
+		$return = array();
+		$options = array(
+			'name' => 'statistics',
+			'text' => elgg_echo('reportcards:label:viewstatistics'),
+			'href' => elgg_get_site_url() . 'admin/reportcards/statistics?guid=' . $entity->guid,
+			'priority' => 2,
+			'section' => 'info',
+		);
+		$return[] = ElggMenuItem::factory($options);
 		return $return;
 	}
 	

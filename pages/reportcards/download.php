@@ -57,6 +57,9 @@ if (!$report) {
 $mime = "application/pdf";
 $filename = $report->report_filename;
 
+// Create 'viewed' annotation
+create_annotation($report->guid, "reportcard_view", "1", "integer", elgg_get_logged_in_user_guid(), ACCESS_PRIVATE);
+
 // fix for IE https issue
 header("Pragma: public");
 
