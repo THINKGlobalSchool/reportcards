@@ -62,8 +62,8 @@ header("Pragma: public");
 
 header("Content-type: $mime");
 header("Content-Length: {$report->size()}");
-//header("Content-Disposition: inline; filename=\"$filename\""); /* Use this to display PDF in browser */
-header("Content-Disposition: attachment; filename=\"$filename\"");
+header("Content-Disposition: inline; filename=\"$filename\""); /* Use this to display PDF in browser */
+//header("Content-Disposition: attachment; filename=\"$filename\"");
 
 
 
