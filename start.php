@@ -197,14 +197,62 @@ function reportcards_setup_entity_menu($hook, $type, $return, $params) {
 
 	if (elgg_instanceof($entity, 'object', 'reportcardfile')) {
 		$return = array();
-		$options = array(
-			'name' => 'statistics',
-			'text' => elgg_echo('reportcards:label:viewstatistics'),
-			'href' => elgg_get_site_url() . 'admin/reportcards/statistics?guid=' . $entity->guid,
-			'priority' => 2,
-			'section' => 'info',
-		);
-		$return[] = ElggMenuItem::factory($options);
+
+		// Only add stats items in admin context
+		if (elgg_in_context('admin')) {
+			// Annotation options
+			$options = array(
+				'guid' => $entity->guid,
+				'type' => 'object',
+				'subtype' => 'reportcardfile',
+				'annotation_name' => 'reportcard_view',
+				'limit' => 0,
+				'count' => TRUE,
+			);
+
+			// Total view count
+			$total_view_count = elgg_get_annotations($options);
+
+			// Group by owner_guid foir unique viewers
+			$options['group_by'] = 'n_table.owner_guid';
+			$options['count'] = FALSE;
+
+			// Unique view count
+			$views = elgg_get_annotations($options);
+
+			$unique_view_count = count($views);
+			
+			// Add total views
+			$options = array(
+				'name' => 'total_views',
+				'text' => elgg_echo('reportcards:label:totalviews') . ": $total_view_count",
+				'href' => FALSE,
+				'priority' => 1,
+				'section' => 'info',
+			);
+			$return[] = ElggMenuItem::factory($options);
+
+			// Add unique views
+			$options = array(
+				'name' => 'unique_view',
+				'text' => elgg_echo('reportcards:label:uniqueviews') . ": $unique_view_count",
+				'href' => FALSE,
+				'priority' => 2,
+				'section' => 'info',
+			);
+			$return[] = ElggMenuItem::factory($options);
+
+			// Add view statistics
+			$options = array(
+				'name' => 'statistics',
+				'text' => elgg_echo('reportcards:label:viewstatistics'),
+				'href' => elgg_get_site_url() . 'admin/reportcards/statistics?guid=' . $entity->guid,
+				'priority' => 3,
+				'section' => 'info',
+			);
+			$return[] = ElggMenuItem::factory($options);
+		}
+
 		return $return;
 	}
 	
