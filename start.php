@@ -139,7 +139,7 @@ function reportcards_pagesetup() {
 				$hide_banner = TRUE;
 			}
 
-			if ((!$hide_banner || elgg_in_context('parentportal')) && elgg_get_plugin_setting('banner_enable', 'reportcards')) {
+			if ((!$hide_banner || elgg_in_context('parentportal')) && elgg_get_plugin_setting('banner_enable', 'reportcards') == 'yes') {
 				elgg_extend_view('footer/analytics', 'reportcards/banner');
 			}
 
