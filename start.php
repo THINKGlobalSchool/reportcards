@@ -56,6 +56,7 @@ function reportcards_init() {
 	elgg_register_action('reportcards/remote_copy', "$action_base/remote_copy.php", 'admin');
 	elgg_register_action('reportcards/reset', "$action_base/reset.php", 'admin');
 	elgg_register_action('reportcards/banner', "$action_base/banner.php", 'admin');
+	elgg_register_action('reportcards/delete', "$action_base/delete.php", 'admin');
 	elgg_register_action('reportcards/reportimport/delete', "$action_base/reportimport/delete.php", 'admin');
 	elgg_register_action('reportcards/reportimport/edit', "$action_base/reportimport/edit.php", 'admin');
 
@@ -248,6 +249,18 @@ function reportcards_setup_entity_menu($hook, $type, $return, $params) {
 				'text' => elgg_echo('reportcards:label:viewstatistics'),
 				'href' => elgg_get_site_url() . 'admin/reportcards/statistics?guid=' . $entity->guid,
 				'priority' => 3,
+				'section' => 'info',
+			);
+			$return[] = ElggMenuItem::factory($options);
+
+			// delete link
+			$options = array(
+				'name' => 'delete',
+				'text' => elgg_view_icon('delete'),
+				'title' => elgg_echo('delete:this'),
+				'href' => "action/reportcards/delete?guid={$entity->getGUID()}",
+				'confirm' => elgg_echo('deleteconfirm'),
+				'priority' => 300,
 				'section' => 'info',
 			);
 			$return[] = ElggMenuItem::factory($options);
