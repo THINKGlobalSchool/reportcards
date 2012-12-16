@@ -21,6 +21,7 @@ if (elgg_instanceof($import, 'object', 'reportcard_import_container')) {
 		'relationship' => REPORTCARD_IMPORT_RELATIONSHIP,
 		'relationship_guid' => $import->guid,
 		'inverse_relationship' => true,
+		'limit' => 0,
 	);
 	
 	$reportcards = new ElggBatch('elgg_get_entities_from_relationship', $options);

@@ -19,6 +19,7 @@ $english = array(
 	'admin:reportcards:viewimport' => 'View Report Card Import',
 	'admin:reportcards:editimport' => 'Edit Report Card Import',
 	'admin:reportcards:statistics' => 'Report Card Statistics',
+	'admin:reportcards:viewall' => 'View All',
 
 	// Page titles
 
@@ -64,6 +65,7 @@ $english = array(
 	'reportcards:success:createimportdirectory' => 'Successfully created import directory',
 	'reportcards:success:importdirectory' => 'Successfully set import directory',
 	'reportcards:success:deleteimport' => 'Successfully deleted report card import',
+	'reportcards:success:delete' => 'Successfully deleted report card',
 	'reportcards:success:editreportimport' => 'Successfully edited report card import',
 	'reportcards:success:banner' => 'Successfully updated report card banner settings',
 	'reportcards:error:importdirectory' => 'There was an error setting the import directory',
@@ -72,6 +74,7 @@ $english = array(
 	'reportcards:error:invalidreportimport' => 'Invalid Report Import',
 	'reportcards:error:invaliddirectory' => 'Invalid directory: %s',
 	'reportcards:error:nodata' => 'No Data',
+	'reportcards:error:delete' => 'There was an error deleting the report card',
 	'reportcards:error:deleteimport' => 'There was an error deleting the report card import',
 	'reportcards:error:editreportimport' => 'There was an error editing the report import',
 	'reportcards:error:requiredfields' => 'One or more required fields are missing',
