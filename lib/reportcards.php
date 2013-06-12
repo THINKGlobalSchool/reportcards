@@ -140,8 +140,7 @@ function reportcards_import_from_file($file_name, $reports_directory, $log_outpu
 								$report_entity->title = $title;
 								$report_entity->report_year = $year;
 								$report_entity->report_period = $period;
-								$report_entity
-								->report_published = $published;
+								$report_entity->report_published = $published;
 								$report_entity->report_filename = $report['filename'];
 
 								$prefix = 'reportcards/';
