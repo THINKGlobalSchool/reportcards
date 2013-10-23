@@ -79,6 +79,10 @@ $english = array(
 	'reportcards:error:editreportimport' => 'There was an error editing the report import',
 	'reportcards:error:requiredfields' => 'One or more required fields are missing',
 
+	// Widgets
+	'reportcards:widget:student_title' => 'Report Cards',
+	'reportcards:widget:student_desc' => 'Displat Student Report Cards',
+
 	// Other content
 );
 
