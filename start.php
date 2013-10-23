@@ -60,6 +60,9 @@ function reportcards_init() {
 	elgg_register_action('reportcards/reportimport/delete', "$action_base/reportimport/delete.php", 'admin');
 	elgg_register_action('reportcards/reportimport/edit', "$action_base/reportimport/edit.php", 'admin');
 
+	// Register roles widgets 
+	elgg_register_widget_type('reportcards_student', elgg_echo('reportcards:widget:student_title'), elgg_echo('reportcards:widget:student_desc'), 'rolewidget');
+
 	// Ajax whitelist
 	elgg_register_ajax_view('reportcards/modules/reportcards');
 }
@@ -133,7 +136,9 @@ function reportcards_pagesetup() {
 			// Only display module if user actually has report cards
 			if ($user_report_count) {
 				// Extend student homepage module
-				elgg_extend_view('tgstheme/modules/profile', 'reportcards/student');
+				if (!elgg_is_active_plugin('roles')) {
+					elgg_extend_view('tgstheme/modules/profile', 'reportcards/student');
+				}
 
 				$hide_banner = FALSE;
 			} else {

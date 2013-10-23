@@ -20,7 +20,6 @@ foreach ($report_cards as $report) {
 		$replace = str_replace("Term 1 Progress", "Term 1", $report->title);
 	}
 
-
 	if ($report->report_period == 'Progress 1') {
 		$period = "Term 1";
 	}
