@@ -15,19 +15,19 @@ if (get_input('tab') == 'student') {
 
 $banner_content = elgg_get_plugin_setting('banner_content', 'reportcards');
 
-if (elgg_in_context('home')) {
-	$id = 'reportcards-home-notification';
-} else if (elgg_in_context('parentportal')) {
-	$id = 'reportcards-pp-notification';	
+if (get_input('show_parent_link')) {
+	$child_tab = elgg_get_plugin_setting('banner_child_tab', 'reportcards');
+
 	$banner_content .= elgg_view('output/url', array(
 		'text' => 'Click Here',
-		'href' => elgg_get_site_url() . 'parentportal?tab=student#rc',
+		'href' => elgg_get_site_url() . 'home?tab='  . $child_tab,
 		'class' => 'reportcards-notification-shortcut',
-	));
+	));	
 }
 
+
 $content = <<<HTML
-	<div id='$id'>
+	<div id='reportcards-home-notification'>
 		<div id='reportcards-notification-content'>$banner_content</div>
 	</div>
 HTML;

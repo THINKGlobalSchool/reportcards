@@ -20,4 +20,16 @@
 		<version>1.8</version>
 		<comparison>ge</comparison>
 	</requires>
+	<requires>
+		<type>plugin</type>
+		<name>parentportal</name>
+		<version>1.8</version>
+		<comparison>ge</comparison>
+	</requires>
+	<requires>
+		<type>plugin</type>
+		<name>roles</name>
+		<version>1.8</version>
+		<comparison>ge</comparison>
+	</requires>
 </plugin_manifest>
