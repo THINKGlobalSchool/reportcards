@@ -124,33 +124,15 @@ function reportcards_pagesetup() {
 			elgg_load_css('elgg.reportcards');
 			elgg_load_js('elgg.reportcards');
 			elgg_load_js('jquery.easing');
-		
-			// Count user reports
-			$user_report_count = elgg_get_entities(array(
-				'type' => 'object',
-				'subtype' => 'reportcardfile',
-				'count' => TRUE,
-				'owner_guid' => elgg_get_logged_in_user_guid(),
-			));
-			
-			// Only display module if user actually has report cards
-			if ($user_report_count) {
-				// Extend student homepage module
-				if (!elgg_is_active_plugin('roles')) {
-					elgg_extend_view('tgstheme/modules/profile', 'reportcards/student');
-				}
 
-				$hide_banner = FALSE;
-			} else {
-				$hide_banner = TRUE;
+			$parent_role_guid = elgg_get_plugin_setting('parents_role','parentportal');
+			$parent_role = get_entity($parent_role_guid);
+
+			// Extend home page content for parents
+			if (elgg_instanceof($parent_role, 'object', 'role') && $parent_role->isMember() && elgg_get_plugin_setting('banner_enable', 'reportcards') == 'yes') {
+				set_input('show_parent_link', true);
+				elgg_extend_view('roles/dashboard/content', 'reportcards/banner');
 			}
-
-			if ((!$hide_banner || elgg_in_context('parentportal')) && elgg_get_plugin_setting('banner_enable', 'reportcards') == 'yes') {
-				elgg_extend_view('footer/analytics', 'reportcards/banner');
-			}
-
-			// Extend parent child profile module
-			elgg_extend_view('parentportal/module/profile', 'reportcards/parent');
 		}
 	}
 }

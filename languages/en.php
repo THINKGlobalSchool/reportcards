@@ -46,6 +46,7 @@ $english = array(
 	'reportcards:label:period' => 'Period',
 	'reportcards:label:banner' => 'Report Cards Banner',
 	'reportcards:label:enablebanner' => 'Enable report card banner',
+	'reportcards:label:childtab' => 'Child Tab (for parent banner)',
 	'reportcards:label:bannercontent' => 'Banner content',
 	'reportcards:label:remotecopy' => 'Copy Aspen Archives',
 	'reportcards:label:startcopy' => 'Start Copy',
@@ -81,7 +82,7 @@ $english = array(
 
 	// Widgets
 	'reportcards:widget:student_title' => 'Report Cards',
-	'reportcards:widget:student_desc' => 'Displat Student Report Cards',
+	'reportcards:widget:student_desc' => 'Display Student Report Cards',
 
 	// Other content
 );

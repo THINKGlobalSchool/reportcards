@@ -26,8 +26,7 @@
 	}
 }
 
-div#reportcards-home-notification,
-div#reportcards-pp-notification {
+div#reportcards-home-notification {
 	background: #162024;
 	/**border-color: #85161D;
     border-style: solid;
@@ -35,13 +34,12 @@ div#reportcards-pp-notification {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-    top: 0;
     color: #FFF;
     font-weight: bold;
     height: auto;
     overflow: hidden;
     padding: 4px 10px;
-	margin-bottom: 10px;
+	margin: 6px 0px;
     position: relative;
     width: auto;
 	display: none;

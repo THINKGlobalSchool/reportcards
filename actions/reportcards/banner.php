@@ -11,9 +11,11 @@
 
 $content = get_input('banner_content', FALSE);
 $enabled = get_input('banner_enable', FALSE);
+$child_tab = get_input('banner_child_tab', FALSE);
 
 elgg_set_plugin_setting('banner_content', $content, 'reportcards');
 elgg_set_plugin_setting('banner_enable', $enabled, 'reportcards');
+elgg_set_plugin_setting('banner_child_tab', $child_tab, 'reportcards');
 
 system_message(elgg_echo('reportcards:success:banner'));
 forward(REFERER);
