@@ -56,6 +56,7 @@ $english = array(
 	'reportcards:label:uniqueviews' => 'Unique Views',
 	'reportcards:label:viewinfo' => 'View info',
 	'reportcards:label:noviews' => 'No one has viewed this report card',
+	'reportcards:label:showbannerforreport' => 'Show banner for report',
 
 	// River
 

@@ -12,6 +12,7 @@
 $banner_content = elgg_get_plugin_setting('banner_content', 'reportcards');
 $banner_enable = elgg_get_plugin_setting('banner_enable', 'reportcards');
 $banner_child_tab = elgg_get_plugin_setting('banner_child_tab', 'reportcards');
+$banner_current_report = elgg_get_plugin_setting('banner_current_report', 'reportcards');
 
 $reportcards_enable_banner_label = elgg_echo('reportcards:label:enablebanner');
 $reportcards_enable_banner_input = elgg_view('input/dropdown', array(
@@ -42,6 +43,26 @@ $reportcards_child_tab_input = elgg_view('input/dropdown', array(
 		'value' => $banner_child_tab
 ));
 
+// Get all report card imports
+$imports = elgg_get_entities(array(
+	'type' => 'object',
+	'subtype' => 'reportcard_import_container',
+	'limit' => 0
+));
+
+$imports_dropdown[0] = 'All';
+
+foreach ($imports as $import) {
+	$imports_dropdown[$import->guid] = $import->title;
+}
+
+$reportcards_current_report_label = elgg_echo('reportcards:label:showbannerforreport');
+$reportcards_current_report_input = elgg_view('input/dropdown', array(
+		'name' => 'banner_current_report',
+		'options_values' => $imports_dropdown,
+		'value' => $banner_current_report
+));
+
 $reportcards_banner_content_label = elgg_echo('reportcards:label:bannercontent');
 $reportcards_banner_content_input = elgg_view('input/longtext', array(
 	'name' => 'banner_content',
@@ -61,6 +82,10 @@ $content = <<<HTML
 	<div>
 		<label>$reportcards_child_tab_label</label>
 		$reportcards_child_tab_input
+	</div/>
+	<div>
+		<label>$reportcards_current_report_label</label>
+		$reportcards_current_report_input
 	</div/>
 	<div>
 		<label>$reportcards_banner_content_label</label>

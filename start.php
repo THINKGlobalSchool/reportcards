@@ -128,8 +128,38 @@ function reportcards_pagesetup() {
 			$parent_role_guid = elgg_get_plugin_setting('parents_role','parentportal');
 			$parent_role = get_entity($parent_role_guid);
 
+			$banner_enable = elgg_get_plugin_setting('banner_enable', 'reportcards') == 'yes';
+			$show_for_report = elgg_get_plugin_setting('banner_current_report', 'reportcards');
+
+			if ($show_for_report) {
+				$children = parentportal_get_parents_children(elgg_get_logged_in_user_guid());
+
+				$child_guids = array();
+
+				foreach ($children as $child) {
+					$child_guids[] = $child->guid;
+				}
+
+				$ia = elgg_get_ignore_access();
+				elgg_set_ignore_access(TRUE);
+				$current_report_count = elgg_get_entities_from_relationship(array(
+					'type' => 'object',
+					'subtype' => 'reportcardfile',
+					'count' => TRUE,
+					'owner_guids' => $child_guids,
+					'relationship' => REPORTCARD_IMPORT_RELATIONSHIP,
+					'relationship_guid' => $show_for_report,
+					'inverse_relationship' => true
+				));
+				elgg_set_ignore_access($ia);
+
+				if (!$current_report_count) {
+					$banner_enable &= FALSE;
+				}
+			}
+
 			// Extend home page content for parents
-			if (elgg_instanceof($parent_role, 'object', 'role') && $parent_role->isMember() && elgg_get_plugin_setting('banner_enable', 'reportcards') == 'yes') {
+			if (elgg_instanceof($parent_role, 'object', 'role') && $parent_role->isMember() && $banner_enable) {
 				set_input('show_parent_link', true);
 				elgg_extend_view('roles/dashboard/content', 'reportcards/banner');
 			}
