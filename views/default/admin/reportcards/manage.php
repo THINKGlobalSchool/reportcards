@@ -20,6 +20,7 @@ $reportcard_imports = elgg_list_entities(array(
 	'subtype' => 'reportcard_import_container',
 	'pagination' => TRUE,
 	'full_view' => FALSE,
+	'limit' => 0
 ));
 
 if (!$reportcard_imports) {
