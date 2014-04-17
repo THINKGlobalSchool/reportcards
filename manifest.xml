@@ -8,11 +8,11 @@
 	<blurb>Report Card Delivery</blurb>
 	<description>Provide's Report Card Delivery Functionality</description>
 	<website>http://www.thinkglobalschool.org/</website>
-	<copyright>See COPYRIGHT.txt</copyright>
+	<copyright>THINK Global School 2010 - 2014</copyright>
 	<license>GNU Public License version 2</license>
 	<requires>
-		<type>elgg_version</type>
-		<version>2012041801</version>
+		<type>elgg_release</type>
+		<version>1.8</version>
 	</requires>
 	<requires>
 		<type>plugin</type>
