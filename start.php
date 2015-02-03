@@ -5,7 +5,7 @@
  * @package ReportCards
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010 - 2012
+ * @copyright THINK Global School 2010 - 2015
  * @link http://www.thinkglobalschool.com/
  */
 
@@ -22,12 +22,10 @@ function reportcards_init() {
 	
 	// Register CSS
 	$rc_css = elgg_get_simplecache_url('css', 'reportcards/css');
-	elgg_register_simplecache_view('css/reportcards/css');	
 	elgg_register_css('elgg.reportcards', $rc_css);
 	
 	// Register tag dashboards JS library
 	$nm_js = elgg_get_simplecache_url('js', 'reportcards/reportcards');
-	elgg_register_simplecache_view('js/reportcards/reportcards');	
 	elgg_register_js('elgg.reportcards', $nm_js);
 	
 	// Pagesetup event handler
@@ -36,9 +34,8 @@ function reportcards_init() {
 	// Register 'reportcards' page handler
 	elgg_register_page_handler('reportcards', 'reportcards_page_handler');
 	
-	// Register URL handlers
-	elgg_register_entity_url_handler('object', 'reportcard_import_container', 'reportcards_import_url');
-	elgg_register_entity_url_handler('object', 'reportcardfile', 'reportcards_file_url');
+	// Register URL handler
+	elgg_register_plugin_hook_handler('entity:url', 'object', 'reportcards_url_handler');
 	
 	// Reportcards entity menu hook
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'reportcards_setup_entity_menu', 999);
@@ -168,23 +165,25 @@ function reportcards_pagesetup() {
 }
 
 /**
- * Populates the ->getUrl() method for reportcard import entities
+ * Returns the URL from report cards entities
  *
- * @param ElggObject entity
- * @return string request url
+ * @param string $hook   'entity:url'
+ * @param string $type   'object'
+ * @param string $url    The current URL
+ * @param array  $params Hook parameters
+ * @return string
  */
-function reportcards_import_url($entity) {
-	return elgg_get_site_url() . 'admin/reportcards/viewimport?guid=' . $entity->guid;
-}
+function reportcards_url_handler($hook, $type, $url, $params) {
+	$entity = $params['entity'];
 
-/**
- * Populates the ->getUrl() method for reportcard file entities
- *
- * @param ElggObject entity
- * @return string request url
- */
-function reportcards_file_url($entity) {
- 	return elgg_get_site_url() . 'reportcards/download/' . $entity->guid;
+	// Check that the entity is a report card related object
+	if (!elgg_instanceof($entity, 'object', 'reportcardfile')) {
+		return "reportcards/download/{$entity->guid}";
+	} else if (elgg_instanceof($entity, 'object', 'reportcard_import_container')) {
+		return "admin/reportcards/viewimport?guid={$entity->guid}";
+	} else {
+		return;
+	}
 }
 
 /**
