@@ -58,7 +58,7 @@ function reportcards_init() {
 	elgg_register_action('reportcards/reportimport/edit', "$action_base/reportimport/edit.php", 'admin');
 
 	// Register roles widgets 
-	elgg_register_widget_type('reportcards_student', elgg_echo('reportcards:widget:student_title'), elgg_echo('reportcards:widget:student_desc'), 'rolewidget');
+	elgg_register_widget_type('reportcards_student', elgg_echo('reportcards:widget:student_title'), elgg_echo('reportcards:widget:student_desc'), array('rolewidget'));
 
 	// Ajax whitelist
 	elgg_register_ajax_view('reportcards/modules/reportcards');
@@ -177,7 +177,7 @@ function reportcards_url_handler($hook, $type, $url, $params) {
 	$entity = $params['entity'];
 
 	// Check that the entity is a report card related object
-	if (!elgg_instanceof($entity, 'object', 'reportcardfile')) {
+	if (elgg_instanceof($entity, 'object', 'reportcardfile')) {
 		return "reportcards/download/{$entity->guid}";
 	} else if (elgg_instanceof($entity, 'object', 'reportcard_import_container')) {
 		return "admin/reportcards/viewimport?guid={$entity->guid}";
