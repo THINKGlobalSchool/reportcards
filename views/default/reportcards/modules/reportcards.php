@@ -85,10 +85,27 @@ if ($display == 'latest') {
 
 	$periods = elgg_get_tags($report_metadata_options);
 	
-	$year_options = array('all' => elgg_echo('reportcards:label:all'));
+	$year_options = array();
 	foreach ($years as $y) {
 		$year_options[$y->tag] = $y->tag;
 	}
+
+	$year_options = array();
+    foreach ($years as $y) {
+            $year_options[$y->tag] = $y->tag;
+    }
+
+    // Sort years descending
+    krsort($year_options);
+
+     // Reverse array
+    $year_options = array_reverse($year_options, TRUE);
+
+    // Add 'all' item
+    $year_options['all'] = elgg_echo('reportcards:label:all');
+
+    // Reverse back into proper order
+    $year_options = array_reverse($year_options, TRUE);
 	
 	$period_options = array();
 	foreach ($periods as $p) {
