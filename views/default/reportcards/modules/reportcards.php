@@ -72,7 +72,7 @@ if ($display == 'latest') {
 		'type' => 'object',
 		'subtype' => 'reportcard_import_container',
 		'threshold' => 0,
-		'limit' => 5,
+		'limit' => 100,
 		'tag_name' => 'report_year',
 	);
 	// This is just temporary so we can grab 'report_year' and 'report_period' from elgg_get_tags
@@ -111,18 +111,12 @@ if ($display == 'latest') {
 	foreach ($periods as $p) {
 		$period_options[$p->tag] = $p->tag;
 	}
-	
-	// Sort the periods descending
-	krsort($period_options);
-
-	// Reverse array
-	$period_options = array_reverse($period_options, TRUE);
 
 	// Add 'all' item
 	$period_options['all'] = elgg_echo('reportcards:label:all');
 
-	// Reverse back into proper order
-	$period_options = array_reverse($period_options, TRUE);
+	// Sort alphabetical
+	asort($period_options, SORT_NATURAL | SORT_FLAG_CASE);
 
 	// Year label/input
 	$year_label = elgg_echo('reportcards:label:year');
