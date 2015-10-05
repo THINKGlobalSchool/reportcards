@@ -164,9 +164,12 @@ $reportcard_options = array_merge($default_reportcard_options, $filter_reportcar
 
 // Check for parent mode
 $ia = elgg_get_ignore_access();
-if (elgg_extract('parent_mode', $vars, FALSE)) {
+if ($parent_mode = elgg_extract('parent_mode', $vars, FALSE)) {
 	elgg_set_ignore_access(TRUE);
 }
+
+// Set base url
+$reportcard_options['base_url'] = "/ajax/view/reportcards/modules/reportcards?t=1&owner_guid={$owner_guid}&display={$display}&period={$period}&year=$year&parent_mode=value";
 
 // Get report cards with filtered options
 $report_cards = elgg_list_entities_from_relationship($reportcard_options);

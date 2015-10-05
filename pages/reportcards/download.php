@@ -64,7 +64,7 @@ create_annotation($report->guid, "reportcard_view", "1", "integer", elgg_get_log
 header("Pragma: public");
 
 header("Content-type: $mime");
-header("Content-Length: {$report->size()}");
+header("Content-Length: {$report->getSize()}");
 header("Content-Disposition: inline; filename=\"$filename\""); /* Use this to display PDF in browser */
 //header("Content-Disposition: attachment; filename=\"$filename\"");
 
