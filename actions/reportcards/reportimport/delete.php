@@ -24,7 +24,7 @@ if (elgg_instanceof($import, 'object', 'reportcard_import_container')) {
 		'limit' => 0,
 	);
 	
-	$reportcards = new ElggBatch('elgg_get_entities_from_relationship', $options);
+	$reportcards = elgg_get_entities_from_relationship($options);
 	
 	$success = TRUE;
 	// Delete each report associate with this import
